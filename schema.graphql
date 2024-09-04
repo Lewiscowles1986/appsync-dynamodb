@@ -1,0 +1,15 @@
+type Mutation {
+  incrementUserCounter(userId: ID!): Boolean!
+  incrementGlobalCounter(userId: ID!): Boolean!
+  incrementCounter(userId: ID!): Boolean!
+}
+
+type Query {
+  getUserCount(userId: ID!): Int!
+  getGlobalCount: Int!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

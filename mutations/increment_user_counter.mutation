@@ -1,0 +1,16 @@
+#set($expiresAt = $util.time.nowEpochSeconds() + 2592000)
+{
+  "version": "2018-05-29",
+  "operation": "UpdateItem",
+  "key": {
+    "userId": $util.dynamodb.toDynamoDBJson($context.arguments.userId)
+  },
+  "update": {
+    "expression": "SET userCounter = if_not_exists(userCounter, :start) + :incr, expires = if_not_exists(expires, :ttl)",
+    "expressionValues": {
+      ":incr": { "N": "1" },
+      ":start": { "N": "0" },
+      ":ttl": { "N": "$expiresAt" },
+    }
+  }
+}
